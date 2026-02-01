@@ -1,0 +1,72 @@
+#---------------------------------------------------------------------------------------------------
+# ModelConfig
+model_name_or_path: GSAI-ML/LLaDA-8B-Instruct
+trust_remote_code: true
+dtype: bfloat16
+
+attn_implementation: flash_attention_2
+
+load_in_4bit: false
+bnb_4bit_quant_type: nf4
+use_bnb_nested_quant: true
+
+use_peft: true
+lora_r: 64
+lora_target_modules: ["q_proj", "k_proj", "v_proj", "attn_out", "ff_proj", "up_proj", "ff_out"]
+lora_alpha: 64
+lora_dropout: 0
+lora_task_type: CAUSAL_LM
+
+#---------------------------------------------------------------------------------------------------
+# AGRPOConfig
+seed: 333
+bf16: true
+gradient_checkpointing: false
+
+adam_beta1: 0.9
+adam_beta2: 0.99
+weight_decay: 0.01
+max_grad_norm: 1.0
+
+learning_rate: 5e-6
+lr_scheduler_type: cosine
+warmup_ratio: 0.01
+
+dataset: gsm_train
+num_train_epochs: 5
+shuffle_dataset: true
+remove_unused_columns: false
+
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 2
+
+resume_from_checkpoint: false
+run_name: gsm-vr
+output_dir: checkpoints/gsm-vr
+save_strategy: steps
+save_steps: 15
+save_total_limit: 100
+
+logging_steps: 1
+report_to: wandb
+log_completions: true
+num_completions_to_print: 0
+log_unique_prompts: true
+
+temperature: 0.6
+top_p: 0.99
+top_k: 150
+
+# Diffusion- and GRPO-specific
+max_completion_length: 384
+block_length: 12
+sampling_steps: 128
+unmasking: random
+beta: 0.0
+epsilon: 0.2
+num_generations: 8
+steps_per_generation: 1
+num_iterations: 1
+mc_samples: 24
+low_discrepancy: true
+importance_sampling: entropy

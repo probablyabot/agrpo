@@ -1,0 +1,33 @@
+#---------------------------------------------------------------------------------------------------
+# ModelConfig
+model_name_or_path: GSAI-ML/LLaDA-8B-Instruct
+trust_remote_code: true
+dtype: bfloat16
+
+attn_implementation: flash_attention_2
+
+load_in_4bit: false
+
+#---------------------------------------------------------------------------------------------------
+# AGRPOConfig
+seed: 333
+bf16: true
+
+torch_compile: true
+
+dataset: gsm_test
+shuffle_dataset: false
+
+per_device_eval_batch_size: 8
+
+resume_from_checkpoint: false
+run_name: gsm-base
+
+report_to: wandb
+
+# Diffusion and GRPO-specific
+max_completion_length: 256
+block_length: 32
+sampling_steps: 128
+unmasking: low_confidence
+temperature: 0.0
