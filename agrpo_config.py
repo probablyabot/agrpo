@@ -6,7 +6,7 @@ from trl import GRPOConfig
 class AGRPOConfig(GRPOConfig):
     sampling_steps: Optional[int] = field(
         default=128,
-        metadata={"help": "Number of sampling steps at generation time."}
+        metadata={"help": "Number of sampling steps for generation."}
     )
     block_length: Optional[int] = field(
         default=16,
@@ -14,7 +14,7 @@ class AGRPOConfig(GRPOConfig):
     )
     unmasking: Optional[str] = field(
         default="low_confidence",
-        metadata={"help": "Unmasking strategy for generation."}
+        metadata={"help": "Unmasking strategy for generation. Can be 'low_confidence' or 'random'."}
     )
     mc_samples: Optional[int] = field(
         default=1,
@@ -26,7 +26,7 @@ class AGRPOConfig(GRPOConfig):
     )
     importance_sampling: Optional[str] = field(
         default="uniform",
-        metadata={"help": "Importance sampling strategy to use when sampling timesteps."}
+        metadata={"help": "Importance sampling strategy for timestep estimation. Can be 'uniform' or 'entropy'."}
     )
     mask_token_id: Optional[int] = field(
         default=126336,

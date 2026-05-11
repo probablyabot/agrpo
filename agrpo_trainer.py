@@ -279,7 +279,7 @@ class AGRPOTrainer(GRPOTrainer):
             sampled_probs = step_probs.gather(1, mc_steps)
             importance_weights = (1.0 / (last_step + 1)) / sampled_probs
         else:
-            mc_steps = torch.floor(u * last_step)
+            mc_steps = torch.floor(u * (last_step + 1))
             importance_weights = None
 
         for i in range(self.mc_samples):

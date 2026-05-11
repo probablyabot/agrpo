@@ -58,7 +58,7 @@ def correctness_reward(completions: List[str], answer: List[str], **kwargs):
 
 def countdown_format_reward(completions: List[str], target: List[int], nums: List[List[int]], **kwargs):
     rewards = []
-    for comp, target, nums in zip(completions, target, nums):
+    for comp, t, num_list in zip(completions, target, nums):
         r = 0.0
         if extracted_ans := ANSWER_TAG.search(comp):
             eq_text = extracted_ans.group(1).strip()
@@ -68,12 +68,12 @@ def countdown_format_reward(completions: List[str], target: List[int], nums: Lis
                     r -= 0.5
                 lhs, rhs = s[0].strip(), s[-1].strip()
                 try:
-                    if re.match(r"^\d+$", rhs) and int(rhs) == target:
+                    if re.match(r"^\d+$", rhs) and int(rhs) == t:
                         r += 1 / 3
                     if re.match(r"^[\d\s+\-*/()]+$", lhs):
                         r += 1 / 3
                     used_nums = [int(num) for num in re.findall(r"\d+", lhs)]
-                    if sorted(used_nums) == sorted(nums):
+                    if sorted(used_nums) == sorted(num_list):
                         r += 1 / 3
                 except Exception as e:
                     print(f"Error parsing {eq_text}: {e}")

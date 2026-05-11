@@ -2,7 +2,7 @@
 
 # AGRPO: Amortized Group Relative Policy Optimization
 
-Official implementation of the paper *Simple Policy Gradients for Reasoning with Diffusion Language Models*
+Official implementation of the paper *Simple Policy Gradients for Reasoning with Diffusion Language Models* **[ICML 2026]**
 
 **Anthony Zhan**
 
@@ -16,7 +16,7 @@ Stanford University
 
 ## Overview
 
-AGRPO is a policy gradient algorithm designed for masked diffusion LLMs (e.g., [LLaDA](https://github.com/ML-GSAI/LLaDA)). By exploiting the **multi-step Markovian nature** of the generation process, AGRPO sidesteps the need for one-step likelihood approximations or bounds. Instead, the model learns directly from the full range of intermediate masked states, yielding unbiased, **high-fidelity** policy gradients and **stronger reasoning abilities** across multiple tasks.
+AGRPO is a policy gradient algorithm designed for masked diffusion LLMs (e.g., [LLaDA](https://github.com/ML-GSAI/LLaDA)). By exploiting the **multi-step Markovian nature** of the generation process, AGRPO obviates the need for sequence-level ELBOs or surrogates. Instead, the model learns directly from intermediate masked states via **timestep estimation**, yielding **unbiased** policy gradients and superior reasoning abilities across multiple tasks.
 
 <p align="center">
   <img src="assets/algs.png" width="75%">

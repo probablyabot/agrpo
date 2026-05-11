@@ -33,10 +33,7 @@ def get_model_and_tokenizer(model_config, device_map=None):
         padding_side="left"
     )
 
-    use_flash_attn = (
-        "flash_attention" in model_config.attn_implementation
-        and "Dream" not in model_config.model_name_or_path
-    )
+    use_flash_attn = model_config.attn_implementation in {"flash_attention", "flash_attention_2"}
     model = AutoModel.from_pretrained(
         model_config.model_name_or_path,
         device_map=device_map,
